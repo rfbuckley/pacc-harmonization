@@ -1,0 +1,560 @@
+Mplus VERSION 8.5 DEMO (Mac)
+MUTHEN & MUTHEN
+08/10/2021  10:13 AM
+
+INPUT INSTRUCTIONS
+
+  TITLE:
+    Variable List -
+
+  ID	: ID for the last visit analyses
+  rcfcsrt_t1_tot : RECODE of FC_SRT (Free and Cued Selective Reminding Test - trial 1)
+  rcfcsrt_t2_tot : RECODE of FC_SRT (Free and Cued Selective Reminding Test - trial 2)
+  rcfcsrt_t3_tot : RECODE of FC_SRT (Free and Cued Selective Reminding Test - trial 3)
+  rcDigitSym	: RECODE of DigitSym
+  rcMMSE	: RECODE of MMSE (MMSE total score)
+  rcLMDR_A4 : RECODE of Logical Memory - Delayed Recall
+
+  DATA:
+    FILE = ~/Desktop/a4_recoded_bifactor_daisychain_formplus.dat ; !these are the baseline recoded data JUST FOR A4 
+
+
+  VARIABLE:
+    NAMES =
+       ID  rcfcsrt_t1_tot rcfcsrt_t2_tot rcfcsrt_t3_tot
+       rcDigitSym  rcMMSE  rcLMDR_A4;
+       USEVARIABLES =
+       ID  rcfcsrt_t1_tot rcfcsrt_t2_tot rcfcsrt_t3_tot
+       rcDigitSym  rcMMSE  rcLMDR_A4;
+    MISSING ARE ALL (-9999) ;
+    CATEGORICAL =
+       all
+       ;
+    IDVARIABLE = ID ;
+  ANALYSIS:
+    ESTIMATOR = MLR ;
+  OUTPUT:
+  stdyx ; 
+
+  !WE DO NOT SAVE OUT THE SCORES FROM THIS MODEL YET - WE STILL HAVE THE SET THE MEAN AND VARIANCE OF THE LPACC IN A LATER MODEL
+
+  MODEL:
+  lpacc by rcfcsrt_t1_tot @ 2.129 ; !You set unstandardized loadings THAT OVERLAP WITH THE BASE MODEL COHORTS that you get from the basemodel_lastvisit_bifactor.out 
+  lpacc by rcfcsrt_t2_tot @ 2.716 ;
+  lpacc by rcfcsrt_t3_tot @ 3.045 ;
+  lpacc by rcDigitSym @ 1.868 ;
+  lpacc by rcMMSE @ 1.224 ;
+  lpacc BY rcLMDR_A4* ;
+  lpacc* ; !DO NOT YET SET THE MEAN AND VARIANCE OF THE LPACC
+  [lpacc*] ;
+
+  [rcfcsrt_t1_tot$1 @ -5.692] ;
+  [rcfcsrt_t1_tot$2 @ -4.212] ;
+  [rcfcsrt_t1_tot$3 @ -2.539] ;
+  [rcfcsrt_t1_tot$4 @ -0.767] ;
+  [rcfcsrt_t1_tot$5 @ 1.617] ;
+  [rcfcsrt_t1_tot$6 @ 3.862] ;
+  [rcfcsrt_t1_tot$7 @ 5.106] ;
+  [rcfcsrt_t1_tot$8 @ 8.706] ;
+  [rcfcsrt_t2_tot$1 @ -7.786] ;
+  [rcfcsrt_t2_tot$2 @ -5.802] ;
+  [rcfcsrt_t2_tot$3 @ -4.400] ;
+  [rcfcsrt_t2_tot$4 @ -1.027] ;
+  [rcfcsrt_t2_tot$5 @ 1.540] ;
+  [rcfcsrt_t2_tot$6 @ 4.503] ;
+  [rcfcsrt_t2_tot$7 @ 9.982] ;
+  [rcfcsrt_t3_tot$1 @ -8.383] ;
+  [rcfcsrt_t3_tot$2 @ -6.363] ;
+  [rcfcsrt_t3_tot$3 @ -2.572] ;
+  [rcfcsrt_t3_tot$4 @ 0.168] ;
+  [rcfcsrt_t3_tot$5 @ 3.463] ;
+  [rcfcsrt_t3_tot$6 @ 5.293] ;
+  [rcfcsrt_t3_tot$7 @ 10.942] ;
+  [rcMMSE$1 @ -3.328] ;
+  [rcMMSE$2 @ -2.616] ;
+  [rcMMSE$3 @ -1.589] ;
+  [rcMMSE$4 @ -0.445] ;
+  [rcMMSE$5 @ 1.061] ;
+  [rcDigitSym$1 @ -5.630] ;
+  [rcDigitSym$2 @ -3.397] ;
+  [rcDigitSym$3 @ -1.590] ;
+  [rcDigitSym$4 @ -0.192] ;
+  [rcDigitSym$5 @ 1.168] ;
+  [rcDigitSym$6 @ 2.367] ;
+  [rcDigitSym$7 @ 3.471] ;
+  [rcDigitSym$8 @ 4.666] ;
+  [rcDigitSym$9 @ 6.360] ;
+
+
+
+*** WARNING in VARIABLE command
+  Note that only the first 8 characters of variable names are used in the output.
+  Shorten variable names to avoid any confusion.
+   1 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+
+Variable List -
+
+ID : ID for the last visit analyses
+rcfcsrt_t1_tot : RECODE of FC_SRT (Free and Cued Selective Reminding Test - trial 1)
+rcfcsrt_t2_tot : RECODE of FC_SRT (Free and Cued Selective Reminding Test - trial 2)
+rcfcsrt_t3_tot : RECODE of FC_SRT (Free and Cued Selective Reminding Test - trial 3)
+rcDigitSym : RECODE of DigitSym
+rcMMSE : RECODE of MMSE (MMSE total score)
+rcLMDR_A4 : RECODE of Logical Memory - Delayed Recall
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        4492
+
+Number of dependent variables                                    6
+Number of independent variables                                  0
+Number of continuous latent variables                            1
+
+Observed dependent variables
+
+  Binary and ordered categorical (ordinal)
+   RCFCSRT_    RCFCSRT_    RCFCSRT_    RCDIGITS    RCMMSE      RCLMDR_A
+
+Continuous latent variables
+   LPACC
+
+Variables with special functions
+
+  ID variable           ID
+
+Estimator                                                      MLR
+Information matrix                                        OBSERVED
+Optimization Specifications for the Quasi-Newton Algorithm for
+Continuous Outcomes
+  Maximum number of iterations                                 100
+  Convergence criterion                                  0.100D-05
+Optimization Specifications for the EM Algorithm
+  Maximum number of iterations                                 500
+  Convergence criteria
+    Loglikelihood change                                 0.100D-02
+    Relative loglikelihood change                        0.100D-05
+    Derivative                                           0.100D-02
+Optimization Specifications for the M step of the EM Algorithm for
+Categorical Latent variables
+  Number of M step iterations                                    1
+  M step convergence criterion                           0.100D-02
+  Basis for M step termination                           ITERATION
+Optimization Specifications for the M step of the EM Algorithm for
+Censored, Binary or Ordered Categorical (Ordinal), Unordered
+Categorical (Nominal) and Count Outcomes
+  Number of M step iterations                                    1
+  M step convergence criterion                           0.100D-02
+  Basis for M step termination                           ITERATION
+  Maximum value for logit thresholds                            15
+  Minimum value for logit thresholds                           -15
+  Minimum expected cell size for chi-square              0.100D-01
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Optimization algorithm                                         EMA
+Integration Specifications
+  Type                                                    STANDARD
+  Number of integration points                                  15
+  Dimensions of numerical integration                            1
+  Adaptive quadrature                                           ON
+Link                                                         LOGIT
+Cholesky                                                        ON
+
+Input data file(s)
+  ~/Desktop/a4_recoded_bifactor_daisychain_formplus.dat
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns             4
+     Number of y missing data patterns           0
+     Number of u missing data patterns           4
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT FOR U
+
+
+           Covariance Coverage
+              RCFCSRT_      RCFCSRT_      RCFCSRT_      RCDIGITS      RCMMSE
+              ________      ________      ________      ________      ________
+ RCFCSRT_       1.000
+ RCFCSRT_       1.000         1.000
+ RCFCSRT_       0.999         0.999         0.999
+ RCDIGITS       1.000         1.000         0.999         1.000
+ RCMMSE         0.999         0.999         0.999         0.999         0.999
+ RCLMDR_A       1.000         1.000         0.999         1.000         0.999
+
+
+           Covariance Coverage
+              RCLMDR_A
+              ________
+ RCLMDR_A       1.000
+
+
+UNIVARIATE PROPORTIONS AND COUNTS FOR CATEGORICAL VARIABLES
+
+    RCFCSRT_
+      Category 1    0.002            8.000
+      Category 2    0.033          147.000
+      Category 3    0.146          655.000
+      Category 4    0.296         1330.000
+      Category 5    0.305         1369.000
+      Category 6    0.169          758.000
+      Category 7    0.034          152.000
+      Category 8    0.011           50.000
+      Category 9    0.005           22.000
+    RCFCSRT_
+      Category 1    0.002            8.000
+      Category 2    0.006           27.000
+      Category 3    0.029          132.000
+      Category 4    0.237         1064.000
+      Category 5    0.310         1392.000
+      Category 6    0.274         1230.000
+      Category 7    0.141          631.000
+      Category 8    0.002            7.000
+    RCFCSRT_
+      Category 1    0.003           14.000
+      Category 2    0.013           60.000
+      Category 3    0.152          684.000
+      Category 4    0.268         1202.000
+      Category 5    0.311         1395.000
+      Category 6    0.210          944.000
+      Category 7    0.034          153.000
+      Category 8    0.008           37.000
+    RCDIGITS
+      Category 1    0.003           12.000
+      Category 2    0.007           32.000
+      Category 3    0.053          240.000
+      Category 4    0.185          832.000
+      Category 5    0.281         1262.000
+      Category 6    0.275         1236.000
+      Category 7    0.132          595.000
+      Category 8    0.050          223.000
+      Category 9    0.012           54.000
+      Category 10    0.001            6.000
+    RCMMSE
+      Category 1    0.017           77.000
+      Category 2    0.038          172.000
+      Category 3    0.094          422.000
+      Category 4    0.191          858.000
+      Category 5    0.303         1360.000
+      Category 6    0.356         1600.000
+    RCLMDR_A
+      Category 1    0.002           10.000
+      Category 2    0.112          501.000
+      Category 3    0.164          735.000
+      Category 4    0.202          909.000
+      Category 5    0.207          931.000
+      Category 6    0.178          799.000
+      Category 7    0.059          263.000
+      Category 8    0.046          207.000
+      Category 9    0.028          125.000
+      Category 10    0.003           12.000
+
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       12
+
+Loglikelihood
+
+          H0 Value                      -43905.570
+          H0 Scaling Correction Factor      0.9909
+            for MLR
+
+Information Criteria
+
+          Akaike (AIC)                   87835.140
+          Bayesian (BIC)                 87912.061
+          Sample-Size Adjusted BIC       87873.930
+            (n* = (n + 2) / 24)
+
+Chi-Square Test of Model Fit for the Binary and Ordered Categorical
+(Ordinal) Outcomes**
+
+          Pearson Chi-Square
+
+          Value                          40168.237
+          Degrees of Freedom                345283
+          P-Value                           1.0000
+
+          Likelihood Ratio Chi-Square
+
+          Value                          12760.744
+          Degrees of Freedom                345283
+          P-Value                           1.0000
+
+** Of the 447000 cells in the frequency table, 304
+   were deleted in the calculation of chi-square due to extreme values.
+
+Chi-Square Test for MCAR under the Unrestricted Latent Class Indicator Model
+
+          Pearson Chi-Square
+
+          Value                             62.599
+          Degrees of Freedom                101397
+          P-Value                           1.0000
+
+          Likelihood Ratio Chi-Square
+
+          Value                             11.875
+          Degrees of Freedom                101397
+          P-Value                           1.0000
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ LPACC    BY
+    RCFCSRT_T1         2.129      0.000    999.000    999.000
+    RCFCSRT_T2         2.716      0.000    999.000    999.000
+    RCFCSRT_T3         3.045      0.000    999.000    999.000
+    RCDIGITSYM         1.868      0.000    999.000    999.000
+    RCMMSE             1.224      0.000    999.000    999.000
+    RCLMDR_A4          0.720      0.042     16.947      0.000
+
+ Means
+    LPACC              0.240      0.012     19.258      0.000
+
+ Thresholds
+    RCFCSRT_$1        -5.692      0.000    999.000    999.000
+    RCFCSRT_$2        -4.212      0.000    999.000    999.000
+    RCFCSRT_$3        -2.539      0.000    999.000    999.000
+    RCFCSRT_$4        -0.767      0.000    999.000    999.000
+    RCFCSRT_$5         1.617      0.000    999.000    999.000
+    RCFCSRT_$6         3.862      0.000    999.000    999.000
+    RCFCSRT_$7         5.106      0.000    999.000    999.000
+    RCFCSRT_$8         8.706      0.000    999.000    999.000
+    RCFCSRT_$1        -7.786      0.000    999.000    999.000
+    RCFCSRT_$2        -5.802      0.000    999.000    999.000
+    RCFCSRT_$3        -4.400      0.000    999.000    999.000
+    RCFCSRT_$4        -1.027      0.000    999.000    999.000
+    RCFCSRT_$5         1.540      0.000    999.000    999.000
+    RCFCSRT_$6         4.503      0.000    999.000    999.000
+    RCFCSRT_$7         9.982      0.000    999.000    999.000
+    RCFCSRT_$1        -8.383      0.000    999.000    999.000
+    RCFCSRT_$2        -6.363      0.000    999.000    999.000
+    RCFCSRT_$3        -2.572      0.000    999.000    999.000
+    RCFCSRT_$4         0.168      0.000    999.000    999.000
+    RCFCSRT_$5         3.463      0.000    999.000    999.000
+    RCFCSRT_$6         5.293      0.000    999.000    999.000
+    RCFCSRT_$7        10.942      0.000    999.000    999.000
+    RCDIGITS$1        -5.630      0.000    999.000    999.000
+    RCDIGITS$2        -3.397      0.000    999.000    999.000
+    RCDIGITS$3        -1.590      0.000    999.000    999.000
+    RCDIGITS$4        -0.192      0.000    999.000    999.000
+    RCDIGITS$5         1.168      0.000    999.000    999.000
+    RCDIGITS$6         2.367      0.000    999.000    999.000
+    RCDIGITS$7         3.471      0.000    999.000    999.000
+    RCDIGITS$8         4.666      0.000    999.000    999.000
+    RCDIGITS$9         6.360      0.000    999.000    999.000
+    RCMMSE$1          -3.328      0.000    999.000    999.000
+    RCMMSE$2          -2.616      0.000    999.000    999.000
+    RCMMSE$3          -1.589      0.000    999.000    999.000
+    RCMMSE$4          -0.445      0.000    999.000    999.000
+    RCMMSE$5           1.061      0.000    999.000    999.000
+    RCLMDR_A$1        -6.079      0.317    -19.190      0.000
+    RCLMDR_A$2        -1.986      0.048    -41.770      0.000
+    RCLMDR_A$3        -0.838      0.035    -24.174      0.000
+    RCLMDR_A$4         0.092      0.033      2.813      0.005
+    RCLMDR_A$5         1.010      0.036     27.990      0.000
+    RCLMDR_A$6         2.125      0.048     44.317      0.000
+    RCLMDR_A$7         2.775      0.060     46.453      0.000
+    RCLMDR_A$8         3.758      0.089     42.161      0.000
+    RCLMDR_A$9         6.230      0.289     21.544      0.000
+
+ Variances
+    LPACC              0.546      0.014     38.868      0.000
+
+
+RESULTS IN PROBABILITY SCALE
+
+                    Estimate
+
+ RCFCSRT_
+    Category 1         0.007
+    Category 2         0.019
+    Category 3         0.072
+    Category 4         0.193
+    Category 5         0.393
+    Category 6         0.238
+    Category 7         0.050
+    Category 8         0.028
+    Category 9         0.001
+ RCFCSRT_
+    Category 1         0.002
+    Category 2         0.008
+    Category 3         0.022
+    Category 4         0.232
+    Category 5         0.369
+    Category 6         0.293
+    Category 7         0.075
+    Category 8         0.001
+ RCFCSRT_
+    Category 1         0.001
+    Category 2         0.007
+    Category 3         0.116
+    Category 4         0.298
+    Category 5         0.410
+    Category 6         0.112
+    Category 7         0.056
+    Category 8         0.000
+ RCDIGITS
+    Category 1         0.006
+    Category 2         0.039
+    Category 3         0.132
+    Category 4         0.207
+    Category 5         0.245
+    Category 6         0.179
+    Category 7         0.103
+    Category 8         0.055
+    Category 9         0.026
+    Category 10        0.007
+ RCMMSE
+    Category 1         0.037
+    Category 2         0.033
+    Category 3         0.093
+    Category 4         0.184
+    Category 5         0.311
+    Category 6         0.342
+ RCLMDR_A
+    Category 1         0.002
+    Category 2         0.112
+    Category 3         0.165
+    Category 4         0.203
+    Category 5         0.206
+    Category 6         0.177
+    Category 7         0.059
+    Category 8         0.046
+    Category 9         0.028
+    Category 10        0.003
+
+
+STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ LPACC    BY
+    RCFCSRT_T1         0.655      0.005    136.220      0.000
+    RCFCSRT_T2         0.742      0.004    172.916      0.000
+    RCFCSRT_T3         0.779      0.004    197.372      0.000
+    RCDIGITSYM         0.606      0.005    122.759      0.000
+    RCMMSE             0.446      0.005     97.067      0.000
+    RCLMDR_A4          0.281      0.015     18.184      0.000
+
+ Means
+    LPACC              0.324      0.018     18.317      0.000
+
+ Thresholds
+    RCFCSRT_$1        -2.371      0.013   -181.059      0.000
+    RCFCSRT_$2        -1.754      0.010   -181.059      0.000
+    RCFCSRT_$3        -1.057      0.006   -181.059      0.000
+    RCFCSRT_$4        -0.319      0.002   -181.059      0.000
+    RCFCSRT_$5         0.673      0.004    181.059      0.000
+    RCFCSRT_$6         1.608      0.009    181.059      0.000
+    RCFCSRT_$7         2.127      0.012    181.059      0.000
+    RCFCSRT_$8         3.626      0.020    181.059      0.000
+    RCFCSRT_$1        -2.878      0.020   -141.224      0.000
+    RCFCSRT_$2        -2.145      0.015   -141.224      0.000
+    RCFCSRT_$3        -1.627      0.012   -141.224      0.000
+    RCFCSRT_$4        -0.380      0.003   -141.224      0.000
+    RCFCSRT_$5         0.569      0.004    141.224      0.000
+    RCFCSRT_$6         1.665      0.012    141.224      0.000
+    RCFCSRT_$7         3.690      0.026    141.224      0.000
+    RCFCSRT_$1        -2.901      0.023   -128.246      0.000
+    RCFCSRT_$2        -2.202      0.017   -128.246      0.000
+    RCFCSRT_$3        -0.890      0.007   -128.246      0.000
+    RCFCSRT_$4         0.058      0.000    128.246      0.000
+    RCFCSRT_$5         1.198      0.009    128.246      0.000
+    RCFCSRT_$6         1.831      0.014    128.246      0.000
+    RCFCSRT_$7         3.786      0.030    128.246      0.000
+    RCDIGITS$1        -2.470      0.012   -211.950      0.000
+    RCDIGITS$2        -1.490      0.007   -211.950      0.000
+    RCDIGITS$3        -0.698      0.003   -211.950      0.000
+    RCDIGITS$4        -0.084      0.000   -211.950      0.000
+    RCDIGITS$5         0.512      0.002    211.950      0.000
+    RCDIGITS$6         1.038      0.005    211.950      0.000
+    RCDIGITS$7         1.523      0.007    211.950      0.000
+    RCDIGITS$8         2.047      0.010    211.950      0.000
+    RCDIGITS$9         2.790      0.013    211.950      0.000
+    RCMMSE$1          -1.642      0.004   -390.336      0.000
+    RCMMSE$2          -1.291      0.003   -390.336      0.000
+    RCMMSE$3          -0.784      0.002   -390.336      0.000
+    RCMMSE$4          -0.220      0.001   -390.336      0.000
+    RCMMSE$5           0.523      0.001    390.336      0.000
+    RCLMDR_A$1        -3.216      0.168    -19.192      0.000
+    RCLMDR_A$2        -1.051      0.026    -40.672      0.000
+    RCLMDR_A$3        -0.443      0.019    -23.563      0.000
+    RCLMDR_A$4         0.049      0.017      2.824      0.005
+    RCLMDR_A$5         0.534      0.018     29.255      0.000
+    RCLMDR_A$6         1.124      0.024     47.020      0.000
+    RCLMDR_A$7         1.468      0.030     48.677      0.000
+    RCLMDR_A$8         1.988      0.046     43.149      0.000
+    RCLMDR_A$9         3.296      0.153     21.530      0.000
+
+ Variances
+    LPACC              1.000      0.000    999.000    999.000
+
+
+R-SQUARE
+
+    Observed                                        Two-Tailed
+    Variable        Estimate       S.E.  Est./S.E.    P-Value
+
+    RCFCSRT_           0.429      0.006     68.110      0.000
+    RCFCSRT_           0.550      0.006     86.458      0.000
+    RCFCSRT_           0.606      0.006     98.686      0.000
+    RCDIGITS           0.367      0.006     61.380      0.000
+    RCMMSE             0.199      0.004     48.533      0.000
+    RCLMDR_A           0.079      0.009      9.092      0.000
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.982E-03
+       (ratio of smallest to largest eigenvalue)
+
+
+     Beginning Time:  10:13:36
+        Ending Time:  10:13:37
+       Elapsed Time:  00:00:01
+
+
+Mplus VERSION 8.5 DEMO (Mac) has the following limitations:
+  Maximum number of dependent variables: 6
+  Maximum number of independent variables: 2
+  Maximum number of between variables: 2
+  Maximum number of continuous latent variables in time series analysis: 2
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2020 Muthen & Muthen

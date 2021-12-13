@@ -1,0 +1,690 @@
+Mplus VERSION 8.3 (Mac)
+MUTHEN & MUTHEN
+07/01/2021   3:00 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:
+    Variable List -
+    ID_uniq	;
+    rcfcsrt_t1_tot	;
+    rcfcsrt_t2_tot	;
+    rcfcsrt_t3_tot	;
+    rcCAT_Anim	;
+    rcCAT_Fr	;
+    rcCAT_Veg 	;
+    rcDigitSym	;
+    rcLMDR	;
+    rcMMSE	;
+
+  DATA:
+    FILE = ~/Desktop/HABS_long_recoded_bifactor.dat ; !these are the longitudinal recoded data JUST FOR HABS (and include the final visit data too!)
+  VARIABLE:
+    NAMES = ID_uniq rcfcsrt_t1_tot rcfcsrt_t2_tot rcfcsrt_t3_tot rcCAT_Anim 
+    rcCAT_Fr rcCAT_Veg rcDigitSym rcLMDR rcMMSE ; !these are the column headings for the dataset
+    USEVARIABLES = ID_uniq rcfcsrt_t1_tot rcfcsrt_t2_tot rcfcsrt_t3_tot rcCAT_Anim
+    rcCAT_Fr rcCAT_Veg rcDigitSym rcLMDR rcMMSE ;!these are the columns used in the model below
+    MISSING ARE ALL (-9999) ; !missing data in the datafile are labeled -9999
+    CATEGORICAL =
+      all
+      ;
+    IDVARIABLE = ID_uniq ; !this is a unique ID number for EACH ROW
+  ANALYSIS:
+     ESTIMATOR = MLR ;
+     !PARAMETERIZATION = theta ;
+  OUTPUT:
+  stdyx ;
+
+  SAVEDATA: FILE IS ~/Desktop/HABS_long_fscoreoutput_bifactor.txt; !the factor scores for HABS are extracted using this code. These are the scores you want!!
+    SAVE IS fscores; !save them out as factor scores
+
+  MODEL: ! THIS IS THE MODEL
+  lpacc by rcfcsrt_t1_tot @ 2.129 ; !You have now set all these unstandardized loadings that you get from the basemodel_lastvisit_bifactor.out file
+  lpacc by rcfcsrt_t2_tot @ 2.716 ;
+  lpacc by rcfcsrt_t3_tot @ 3.045 ;
+  lpacc by rcCAT_Anim @ 1.343 ;
+  lpacc by rcCAT_Fr @ 5.542 ;
+  lpacc by rcCAT_Veg @ 1.915 ;
+  lpacc by rcDigitSym @ 1.868 ;
+  lpacc by rcLMDR @ 1.484 ;
+  lpacc by rcMMSE @ 1.224 ;
+  lpacc @  1.035; !here, you set the variance of the lPACC factor score to that in the HABS_long_nomeansd_bifactor.out file
+  [lpacc @ 0.824 ] ; !here, you set the mean of the lPACC factor score to that in the HABS_long_nomeansd_bifactor.out file
+  [rcfcsrt_t1_tot$1 @ -8.721] ; !here you set the thresholds for each recoding catory for each test
+  [rcfcsrt_t1_tot$2 @ -5.692] ;
+  [rcfcsrt_t1_tot$3 @ -4.212] ;
+  [rcfcsrt_t1_tot$4 @ -2.539] ;
+  [rcfcsrt_t1_tot$5 @ -0.767] ;
+  [rcfcsrt_t1_tot$6 @ 1.617] ;
+  [rcfcsrt_t1_tot$7 @ 3.862] ;
+  [rcfcsrt_t1_tot$8 @ 5.106] ;
+  [rcfcsrt_t1_tot$9 @ 8.706] ;
+  [rcfcsrt_t2_tot$1 @ -10.177] ;
+  [rcfcsrt_t2_tot$2 @ -8.888] ;
+  [rcfcsrt_t2_tot$3 @ -7.786] ;
+  [rcfcsrt_t2_tot$4 @ -5.802] ;
+  [rcfcsrt_t2_tot$5 @ -4.400] ;
+  [rcfcsrt_t2_tot$6 @ -1.027] ;
+  [rcfcsrt_t2_tot$7 @ 1.540] ;
+  [rcfcsrt_t2_tot$8 @ 4.503] ;
+  [rcfcsrt_t2_tot$9 @ 9.982] ;
+  [rcfcsrt_t3_tot$1 @ -13.314] ;
+  [rcfcsrt_t3_tot$2 @ -10.576] ;
+  [rcfcsrt_t3_tot$3 @ -8.383] ;
+  [rcfcsrt_t3_tot$4 @ -6.363] ;
+  [rcfcsrt_t3_tot$5 @ -2.572] ;
+  [rcfcsrt_t3_tot$6 @ 0.168] ;
+  [rcfcsrt_t3_tot$7 @ 3.463] ;
+  [rcfcsrt_t3_tot$8 @ 5.293] ;
+  [rcfcsrt_t3_tot$9 @ 10.942] ;
+  [rcMMSE$1 @ -5.110] ;
+  [rcMMSE$2 @ -4.490] ;
+  [rcMMSE$3 @ -3.899] ;
+  [rcMMSE$4 @ -3.328] ;
+  [rcMMSE$5 @ -2.616] ;
+  [rcMMSE$6 @ -1.589] ;
+  [rcMMSE$7 @ -0.445] ;
+  [rcMMSE$8 @ 1.061] ;
+  [rcLMDR$1 @ -4.538] ;
+  [rcLMDR$2 @ -3.313] ;
+  [rcLMDR$3 @ -2.341] ;
+  [rcLMDR$4 @ -0.933] ;
+  [rcLMDR$5 @ 0.502] ;
+  [rcLMDR$6 @ 1.954] ;
+  [rcLMDR$7 @ 3.114] ;
+  [rcLMDR$8 @ 4.452] ;
+  [rcLMDR$9 @ 6.078] ;
+  [rcCAT_Anim$1 @ -6.181] ;
+  [rcCAT_Anim$2 @ -4.774] ;
+  [rcCAT_Anim$3 @ -2.734] ;
+  [rcCAT_Anim$4 @ -1.310];
+  [rcCAT_Anim$5 @ -0.048] ;
+  [rcCAT_Anim$6 @ 1.234] ;
+  [rcCAT_Anim$7 @ 2.317] ;
+  [rcCAT_Anim$8 @ 3.487] ;
+  [rcCAT_Anim$9 @ 5.428] ;
+  [rcCAT_Fr$1 @ -17.302] ;
+  [rcCAT_Fr$2 @ -14.219] ;
+  [rcCAT_Fr$3 @ -8.462] ;
+  [rcCAT_Fr$4 @ 0.292];
+  [rcCAT_Fr$5 @ 6.768] ;
+  [rcCAT_Fr$6 @ 9.043] ;
+  [rcCAT_Fr$7 @ 11.833] ;
+  [rcCAT_Fr$8 @ 14.773] ;
+  [rcCAT_Fr$9 @ 18.948] ;
+  [rcCAT_Veg$1 @ -4.150] ;
+  [rcCAT_Veg$2 @ -2.761] ;
+  [rcCAT_Veg$3 @ -0.386] ;
+  [rcCAT_Veg$4 @ 1.286];
+  [rcCAT_Veg$5 @ 2.609] ;
+  [rcCAT_Veg$6 @ 3.901] ;
+  [rcCAT_Veg$7 @ 4.971] ;
+  [rcCAT_Veg$8 @ 6.315] ;
+  [rcCAT_Veg$9 @ 7.677] ;
+  [rcDigitSym$1 @ -5.630] ;
+  [rcDigitSym$2 @ -3.397] ;
+  [rcDigitSym$3 @ -1.590] ;
+  [rcDigitSym$4 @ -0.192] ;
+  [rcDigitSym$5 @ 1.168] ;
+  [rcDigitSym$6 @ 2.367] ;
+  [rcDigitSym$7 @ 3.471] ;
+  [rcDigitSym$8 @ 4.666] ;
+  [rcDigitSym$9 @ 6.360] ;
+
+
+! Here is the model output for the HABS datafile
+
+*** WARNING in VARIABLE command
+  Note that only the first 8 characters of variable names are used in the output.
+  Shorten variable names to avoid any confusion.
+   1 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+
+Variable List -
+ID_uniq ;
+rcfcsrt_t1_tot ;
+rcfcsrt_t2_tot ;
+rcfcsrt_t3_tot ;
+rcCAT_Anim ;
+rcCAT_Fr ;
+rcCAT_Veg  ;
+rcDigitSym ;
+rcLMDR ;
+rcMMSE ;
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        2281
+
+Number of dependent variables                                    9
+Number of independent variables                                  0
+Number of continuous latent variables                            1
+
+Observed dependent variables
+
+  Binary and ordered categorical (ordinal)
+   RCFCSRT_    RCFCSRT_    RCFCSRT_    RCCAT_AN    RCCAT_FR    RCCAT_VE
+   RCDIGITS    RCLMDR      RCMMSE
+
+Continuous latent variables
+   LPACC
+
+Variables with special functions
+
+  ID variable           ID_UNIQ
+
+Estimator                                                      MLR
+Information matrix                                        OBSERVED
+Optimization Specifications for the Quasi-Newton Algorithm for
+Continuous Outcomes
+  Maximum number of iterations                                 100
+  Convergence criterion                                  0.100D-05
+Optimization Specifications for the EM Algorithm
+  Maximum number of iterations                                 500
+  Convergence criteria
+    Loglikelihood change                                 0.100D-02
+    Relative loglikelihood change                        0.100D-05
+    Derivative                                           0.100D-02
+Optimization Specifications for the M step of the EM Algorithm for
+Categorical Latent variables
+  Number of M step iterations                                    1
+  M step convergence criterion                           0.100D-02
+  Basis for M step termination                           ITERATION
+Optimization Specifications for the M step of the EM Algorithm for
+Censored, Binary or Ordered Categorical (Ordinal), Unordered
+Categorical (Nominal) and Count Outcomes
+  Number of M step iterations                                    1
+  M step convergence criterion                           0.100D-02
+  Basis for M step termination                           ITERATION
+  Maximum value for logit thresholds                            15
+  Minimum value for logit thresholds                           -15
+  Minimum expected cell size for chi-square              0.100D-01
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Optimization algorithm                                         EMA
+Integration Specifications
+  Type                                                    STANDARD
+  Number of integration points                                  15
+  Dimensions of numerical integration                            1
+  Adaptive quadrature                                           ON
+Link                                                         LOGIT
+Cholesky                                                        ON
+
+Input data file(s)
+  ~/Desktop/HABS_long_recoded_bifactor.dat
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns            12
+     Number of y missing data patterns           0
+     Number of u missing data patterns          12
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT FOR U
+
+
+           Covariance Coverage
+              RCFCSRT_      RCFCSRT_      RCFCSRT_      RCCAT_AN      RCCAT_FR
+              ________      ________      ________      ________      ________
+ RCFCSRT_       0.961
+ RCFCSRT_       0.961         0.961
+ RCFCSRT_       0.960         0.960         0.960
+ RCCAT_AN       0.953         0.953         0.953         0.975
+ RCCAT_FR       0.950         0.950         0.950         0.972         0.972
+ RCCAT_VE       0.951         0.951         0.951         0.974         0.971
+ RCDIGITS       0.959         0.959         0.958         0.974         0.971
+ RCLMDR         0.959         0.959         0.959         0.974         0.971
+ RCMMSE         0.960         0.960         0.959         0.975         0.972
+
+
+           Covariance Coverage
+              RCCAT_VE      RCDIGITS      RCLMDR        RCMMSE
+              ________      ________      ________      ________
+ RCCAT_VE       0.974
+ RCDIGITS       0.972         0.982
+ RCLMDR         0.972         0.981         0.999
+ RCMMSE         0.973         0.981         0.998         0.999
+
+
+UNIVARIATE PROPORTIONS AND COUNTS FOR CATEGORICAL VARIABLES
+
+    RCFCSRT_
+      Category 1    0.004            8.000
+      Category 2    0.007           15.000
+      Category 3    0.021           46.000
+      Category 4    0.052          114.000
+      Category 5    0.057          124.000
+      Category 6    0.211          463.000
+      Category 7    0.309          676.000
+      Category 8    0.236          516.000
+      Category 9    0.089          194.000
+      Category 10    0.016           35.000
+    RCFCSRT_
+      Category 1    0.003            7.000
+      Category 2    0.003            7.000
+      Category 3    0.004            9.000
+      Category 4    0.011           25.000
+      Category 5    0.025           54.000
+      Category 6    0.156          342.000
+      Category 7    0.242          530.000
+      Category 8    0.316          692.000
+      Category 9    0.224          490.000
+      Category 10    0.016           35.000
+    RCFCSRT_
+      Category 1    0.003            6.000
+      Category 2    0.004            9.000
+      Category 3    0.011           25.000
+      Category 4    0.016           34.000
+      Category 5    0.042           91.000
+      Category 6    0.111          244.000
+      Category 7    0.265          580.000
+      Category 8    0.298          653.000
+      Category 9    0.212          464.000
+      Category 10    0.038           84.000
+    RCCAT_AN
+      Category 1    0.007           16.000
+      Category 2    0.023           51.000
+      Category 3    0.136          302.000
+      Category 4    0.205          457.000
+      Category 5    0.238          529.000
+      Category 6    0.186          414.000
+      Category 7    0.120          266.000
+      Category 8    0.053          119.000
+      Category 9    0.028           63.000
+      Category 10    0.004            8.000
+    RCCAT_FR
+      Category 1    0.003            6.000
+      Category 2    0.036           80.000
+      Category 3    0.088          196.000
+      Category 4    0.165          366.000
+      Category 5    0.202          449.000
+      Category 6    0.200          443.000
+      Category 7    0.141          313.000
+      Category 8    0.119          265.000
+      Category 9    0.040           88.000
+      Category 10    0.005           12.000
+    RCCAT_VE
+      Category 1    0.009           20.000
+      Category 2    0.031           69.000
+      Category 3    0.138          307.000
+      Category 4    0.187          416.000
+      Category 5    0.235          522.000
+      Category 6    0.194          430.000
+      Category 7    0.118          261.000
+      Category 8    0.050          112.000
+      Category 9    0.029           65.000
+      Category 10    0.009           19.000
+    RCDIGITS
+      Category 1    0.004           10.000
+      Category 2    0.019           42.000
+      Category 3    0.061          136.000
+      Category 4    0.125          281.000
+      Category 5    0.274          614.000
+      Category 6    0.228          511.000
+      Category 7    0.199          446.000
+      Category 8    0.071          160.000
+      Category 9    0.016           35.000
+      Category 10    0.002            5.000
+    RCLMDR
+      Category 1    0.006           13.000
+      Category 2    0.011           24.000
+      Category 3    0.024           54.000
+      Category 4    0.072          165.000
+      Category 5    0.132          300.000
+      Category 6    0.261          595.000
+      Category 7    0.276          629.000
+      Category 8    0.139          317.000
+      Category 9    0.064          145.000
+      Category 10    0.016           36.000
+    RCMMSE
+      Category 1    0.003            6.000
+      Category 2    0.006           13.000
+      Category 3    0.006           13.000
+      Category 4    0.013           30.000
+      Category 5    0.024           54.000
+      Category 6    0.064          146.000
+      Category 7    0.147          334.000
+      Category 8    0.316          721.000
+      Category 9    0.422          962.000
+
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+     THE CHI-SQUARE TEST CANNOT BE COMPUTED BECAUSE THE FREQUENCY TABLE FOR THE
+     CATEGORICAL VARIABLES IS TOO LARGE.
+
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                        0
+
+Loglikelihood
+
+          H0 Value                      -38246.014
+
+Information Criteria
+
+          Akaike (AIC)                   76492.029
+          Bayesian (BIC)                 76492.029
+          Sample-Size Adjusted BIC       76492.029
+            (n* = (n + 2) / 24)
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ LPACC    BY
+    RCFCSRT_T1         2.129      0.000    999.000    999.000
+    RCFCSRT_T2         2.716      0.000    999.000    999.000
+    RCFCSRT_T3         3.045      0.000    999.000    999.000
+    RCCAT_ANIM         1.343      0.000    999.000    999.000
+    RCCAT_FR           5.542      0.000    999.000    999.000
+    RCCAT_VEG          1.915      0.000    999.000    999.000
+    RCDIGITSYM         1.868      0.000    999.000    999.000
+    RCLMDR             1.484      0.000    999.000    999.000
+    RCMMSE             1.224      0.000    999.000    999.000
+
+ Means
+    LPACC              0.824      0.000    999.000    999.000
+
+ Thresholds
+    RCFCSRT_$1        -8.721      0.000    999.000    999.000
+    RCFCSRT_$2        -5.692      0.000    999.000    999.000
+    RCFCSRT_$3        -4.212      0.000    999.000    999.000
+    RCFCSRT_$4        -2.539      0.000    999.000    999.000
+    RCFCSRT_$5        -0.767      0.000    999.000    999.000
+    RCFCSRT_$6         1.617      0.000    999.000    999.000
+    RCFCSRT_$7         3.862      0.000    999.000    999.000
+    RCFCSRT_$8         5.106      0.000    999.000    999.000
+    RCFCSRT_$9         8.706      0.000    999.000    999.000
+    RCFCSRT_$1       -10.177      0.000    999.000    999.000
+    RCFCSRT_$2        -8.888      0.000    999.000    999.000
+    RCFCSRT_$3        -7.786      0.000    999.000    999.000
+    RCFCSRT_$4        -5.802      0.000    999.000    999.000
+    RCFCSRT_$5        -4.400      0.000    999.000    999.000
+    RCFCSRT_$6        -1.027      0.000    999.000    999.000
+    RCFCSRT_$7         1.540      0.000    999.000    999.000
+    RCFCSRT_$8         4.503      0.000    999.000    999.000
+    RCFCSRT_$9         9.982      0.000    999.000    999.000
+    RCFCSRT_$1       -13.314      0.000    999.000    999.000
+    RCFCSRT_$2       -10.576      0.000    999.000    999.000
+    RCFCSRT_$3        -8.383      0.000    999.000    999.000
+    RCFCSRT_$4        -6.363      0.000    999.000    999.000
+    RCFCSRT_$5        -2.572      0.000    999.000    999.000
+    RCFCSRT_$6         0.168      0.000    999.000    999.000
+    RCFCSRT_$7         3.463      0.000    999.000    999.000
+    RCFCSRT_$8         5.293      0.000    999.000    999.000
+    RCFCSRT_$9        10.942      0.000    999.000    999.000
+    RCCAT_AN$1        -6.181      0.000    999.000    999.000
+    RCCAT_AN$2        -4.774      0.000    999.000    999.000
+    RCCAT_AN$3        -2.734      0.000    999.000    999.000
+    RCCAT_AN$4        -1.310      0.000    999.000    999.000
+    RCCAT_AN$5        -0.048      0.000    999.000    999.000
+    RCCAT_AN$6         1.234      0.000    999.000    999.000
+    RCCAT_AN$7         2.317      0.000    999.000    999.000
+    RCCAT_AN$8         3.487      0.000    999.000    999.000
+    RCCAT_AN$9         5.428      0.000    999.000    999.000
+    RCCAT_FR$1       -17.302      0.000    999.000    999.000
+    RCCAT_FR$2       -14.219      0.000    999.000    999.000
+    RCCAT_FR$3        -8.462      0.000    999.000    999.000
+    RCCAT_FR$4         0.292      0.000    999.000    999.000
+    RCCAT_FR$5         6.768      0.000    999.000    999.000
+    RCCAT_FR$6         9.043      0.000    999.000    999.000
+    RCCAT_FR$7        11.833      0.000    999.000    999.000
+    RCCAT_FR$8        14.773      0.000    999.000    999.000
+    RCCAT_FR$9        18.948      0.000    999.000    999.000
+    RCCAT_VE$1        -4.150      0.000    999.000    999.000
+    RCCAT_VE$2        -2.761      0.000    999.000    999.000
+    RCCAT_VE$3        -0.386      0.000    999.000    999.000
+    RCCAT_VE$4         1.286      0.000    999.000    999.000
+    RCCAT_VE$5         2.609      0.000    999.000    999.000
+    RCCAT_VE$6         3.901      0.000    999.000    999.000
+    RCCAT_VE$7         4.971      0.000    999.000    999.000
+    RCCAT_VE$8         6.315      0.000    999.000    999.000
+    RCCAT_VE$9         7.677      0.000    999.000    999.000
+    RCDIGITS$1        -5.630      0.000    999.000    999.000
+    RCDIGITS$2        -3.397      0.000    999.000    999.000
+    RCDIGITS$3        -1.590      0.000    999.000    999.000
+    RCDIGITS$4        -0.192      0.000    999.000    999.000
+    RCDIGITS$5         1.168      0.000    999.000    999.000
+    RCDIGITS$6         2.367      0.000    999.000    999.000
+    RCDIGITS$7         3.471      0.000    999.000    999.000
+    RCDIGITS$8         4.666      0.000    999.000    999.000
+    RCDIGITS$9         6.360      0.000    999.000    999.000
+    RCLMDR$1          -4.538      0.000    999.000    999.000
+    RCLMDR$2          -3.313      0.000    999.000    999.000
+    RCLMDR$3          -2.341      0.000    999.000    999.000
+    RCLMDR$4          -0.933      0.000    999.000    999.000
+    RCLMDR$5           0.502      0.000    999.000    999.000
+    RCLMDR$6           1.954      0.000    999.000    999.000
+    RCLMDR$7           3.114      0.000    999.000    999.000
+    RCLMDR$8           4.452      0.000    999.000    999.000
+    RCLMDR$9           6.078      0.000    999.000    999.000
+    RCMMSE$1          -5.110      0.000    999.000    999.000
+    RCMMSE$2          -4.490      0.000    999.000    999.000
+    RCMMSE$3          -3.899      0.000    999.000    999.000
+    RCMMSE$4          -3.328      0.000    999.000    999.000
+    RCMMSE$5          -2.616      0.000    999.000    999.000
+    RCMMSE$6          -1.589      0.000    999.000    999.000
+    RCMMSE$7          -0.445      0.000    999.000    999.000
+    RCMMSE$8           1.061      0.000    999.000    999.000
+
+ Variances
+    LPACC              1.035      0.000    999.000    999.000
+
+
+STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ LPACC    BY
+    RCFCSRT_T1         0.767      0.000    999.000    999.000
+    RCFCSRT_T2         0.836      0.000    999.000    999.000
+    RCFCSRT_T3         0.863      0.000    999.000    999.000
+    RCCAT_ANIM         0.602      0.000    999.000    999.000
+    RCCAT_FR           0.952      0.000    999.000    999.000
+    RCCAT_VEG          0.732      0.000    999.000    999.000
+    RCDIGITSYM         0.723      0.000    999.000    999.000
+    RCLMDR             0.640      0.000    999.000    999.000
+    RCMMSE             0.566      0.000    999.000    999.000
+
+ Means
+    LPACC              0.810      0.000    999.000    999.000
+
+ Thresholds
+    RCFCSRT_$1        -3.087      0.000    999.000    999.000
+    RCFCSRT_$2        -2.015      0.000    999.000    999.000
+    RCFCSRT_$3        -1.491      0.000    999.000    999.000
+    RCFCSRT_$4        -0.899      0.000    999.000    999.000
+    RCFCSRT_$5        -0.271      0.000    999.000    999.000
+    RCFCSRT_$6         0.572      0.000    999.000    999.000
+    RCFCSRT_$7         1.367      0.000    999.000    999.000
+    RCFCSRT_$8         1.807      0.000    999.000    999.000
+    RCFCSRT_$9         3.082      0.000    999.000    999.000
+    RCFCSRT_$1        -3.079      0.000    999.000    999.000
+    RCFCSRT_$2        -2.689      0.000    999.000    999.000
+    RCFCSRT_$3        -2.356      0.000    999.000    999.000
+    RCFCSRT_$4        -1.755      0.000    999.000    999.000
+    RCFCSRT_$5        -1.331      0.000    999.000    999.000
+    RCFCSRT_$6        -0.311      0.000    999.000    999.000
+    RCFCSRT_$7         0.466      0.000    999.000    999.000
+    RCFCSRT_$8         1.362      0.000    999.000    999.000
+    RCFCSRT_$9         3.020      0.000    999.000    999.000
+    RCFCSRT_$1        -3.709      0.000    999.000    999.000
+    RCFCSRT_$2        -2.946      0.000    999.000    999.000
+    RCFCSRT_$3        -2.335      0.000    999.000    999.000
+    RCFCSRT_$4        -1.773      0.000    999.000    999.000
+    RCFCSRT_$5        -0.716      0.000    999.000    999.000
+    RCFCSRT_$6         0.047      0.000    999.000    999.000
+    RCFCSRT_$7         0.965      0.000    999.000    999.000
+    RCFCSRT_$8         1.474      0.000    999.000    999.000
+    RCFCSRT_$9         3.048      0.000    999.000    999.000
+    RCCAT_AN$1        -2.722      0.000    999.000    999.000
+    RCCAT_AN$2        -2.102      0.000    999.000    999.000
+    RCCAT_AN$3        -1.204      0.000    999.000    999.000
+    RCCAT_AN$4        -0.577      0.000    999.000    999.000
+    RCCAT_AN$5        -0.021      0.000    999.000    999.000
+    RCCAT_AN$6         0.543      0.000    999.000    999.000
+    RCCAT_AN$7         1.020      0.000    999.000    999.000
+    RCCAT_AN$8         1.536      0.000    999.000    999.000
+    RCCAT_AN$9         2.390      0.000    999.000    999.000
+    RCCAT_FR$1        -2.921      0.000    999.000    999.000
+    RCCAT_FR$2        -2.401      0.000    999.000    999.000
+    RCCAT_FR$3        -1.429      0.000    999.000    999.000
+    RCCAT_FR$4         0.049      0.000    999.000    999.000
+    RCCAT_FR$5         1.143      0.000    999.000    999.000
+    RCCAT_FR$6         1.527      0.000    999.000    999.000
+    RCCAT_FR$7         1.998      0.000    999.000    999.000
+    RCCAT_FR$8         2.494      0.000    999.000    999.000
+    RCCAT_FR$9         3.199      0.000    999.000    999.000
+    RCCAT_VE$1        -1.559      0.000    999.000    999.000
+    RCCAT_VE$2        -1.037      0.000    999.000    999.000
+    RCCAT_VE$3        -0.145      0.000    999.000    999.000
+    RCCAT_VE$4         0.483      0.000    999.000    999.000
+    RCCAT_VE$5         0.980      0.000    999.000    999.000
+    RCCAT_VE$6         1.466      0.000    999.000    999.000
+    RCCAT_VE$7         1.867      0.000    999.000    999.000
+    RCCAT_VE$8         2.372      0.000    999.000    999.000
+    RCCAT_VE$9         2.884      0.000    999.000    999.000
+    RCDIGITS$1        -2.143      0.000    999.000    999.000
+    RCDIGITS$2        -1.293      0.000    999.000    999.000
+    RCDIGITS$3        -0.605      0.000    999.000    999.000
+    RCDIGITS$4        -0.073      0.000    999.000    999.000
+    RCDIGITS$5         0.445      0.000    999.000    999.000
+    RCDIGITS$6         0.901      0.000    999.000    999.000
+    RCDIGITS$7         1.321      0.000    999.000    999.000
+    RCDIGITS$8         1.776      0.000    999.000    999.000
+    RCDIGITS$9         2.421      0.000    999.000    999.000
+    RCLMDR$1          -1.923      0.000    999.000    999.000
+    RCLMDR$2          -1.404      0.000    999.000    999.000
+    RCLMDR$3          -0.992      0.000    999.000    999.000
+    RCLMDR$4          -0.395      0.000    999.000    999.000
+    RCLMDR$5           0.213      0.000    999.000    999.000
+    RCLMDR$6           0.828      0.000    999.000    999.000
+    RCLMDR$7           1.320      0.000    999.000    999.000
+    RCLMDR$8           1.887      0.000    999.000    999.000
+    RCLMDR$9           2.576      0.000    999.000    999.000
+    RCMMSE$1          -2.323      0.000    999.000    999.000
+    RCMMSE$2          -2.041      0.000    999.000    999.000
+    RCMMSE$3          -1.772      0.000    999.000    999.000
+    RCMMSE$4          -1.513      0.000    999.000    999.000
+    RCMMSE$5          -1.189      0.000    999.000    999.000
+    RCMMSE$6          -0.722      0.000    999.000    999.000
+    RCMMSE$7          -0.202      0.000    999.000    999.000
+    RCMMSE$8           0.482      0.000    999.000    999.000
+
+ Variances
+    LPACC              1.000      0.000    999.000    999.000
+
+
+R-SQUARE
+
+    Observed                                        Two-Tailed
+    Variable        Estimate       S.E.  Est./S.E.    P-Value
+
+    RCFCSRT_           0.588      0.000    999.000    999.000
+    RCFCSRT_           0.699      0.000    999.000    999.000
+    RCFCSRT_           0.745      0.000    999.000    999.000
+    RCCAT_AN           0.362      0.000    999.000    999.000
+    RCCAT_FR           0.906      0.000    999.000    999.000
+    RCCAT_VE           0.536      0.000    999.000    999.000
+    RCDIGITS           0.523      0.000    999.000    999.000
+    RCLMDR             0.409      0.000    999.000    999.000
+    RCMMSE             0.320      0.000    999.000    999.000
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.100E+01
+       (ratio of smallest to largest eigenvalue)
+
+
+SAMPLE STATISTICS FOR ESTIMATED FACTOR SCORES
+
+
+     SAMPLE STATISTICS
+
+
+           Means
+              LPACC         LPACC_SE
+              ________      ________
+                0.823         0.278
+
+
+           Covariances
+              LPACC         LPACC_SE
+              ________      ________
+ LPACC          0.950
+ LPACC_SE      -0.022         0.006
+
+
+           Correlations
+              LPACC         LPACC_SE
+              ________      ________
+ LPACC          1.000
+ LPACC_SE      -0.309         1.000
+
+
+SAVEDATA INFORMATION
+
+
+  Save file
+    ~/Desktop/HABS_long_fscoreoutput_bifactor.txt
+
+  Order and format of variables
+
+    RCFCSRT_       F10.3
+    RCFCSRT_       F10.3
+    RCFCSRT_       F10.3
+    RCCAT_AN       F10.3
+    RCCAT_FR       F10.3
+    RCCAT_VE       F10.3
+    RCDIGITS       F10.3
+    RCLMDR         F10.3
+    RCMMSE         F10.3
+    LPACC          F10.3
+    LPACC_SE       F10.3
+    ID_UNIQ        F13.0
+
+  Save file format
+    11F10.3 F13.0
+
+  Save file record length    10000
+
+
+     Beginning Time:  15:00:50
+        Ending Time:  15:00:50
+       Elapsed Time:  00:00:00
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2019 Muthen & Muthen
